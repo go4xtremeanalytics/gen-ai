@@ -7,7 +7,7 @@ import pandas as pd
 @st.cache_resource
 def init_connection():
     return mysql.connector.connect(
-        host=os.getenv("MYSQL_HOST", "host.docker.internal"), # Changed from 'localhost'
+        host=os.getenv("MYSQL_HOST", 'localhost'), # Changed from "host.docker.internal" 
         user=os.getenv("MYSQL_USER", "root"),
         password=os.getenv("MYSQL_PASSWORD", "maniKANDAN-661"),
         database=os.getenv("MYSQL_DATABASE", "classicmodels")
