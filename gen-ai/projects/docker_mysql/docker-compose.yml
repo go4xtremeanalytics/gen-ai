@@ -1,0 +1,14 @@
+version: '3'
+services:
+  streamlit-app:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - MYSQL_HOST= host.docker.internal # Changed from 'localhost'
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=maniKANDAN-661
+      - MYSQL_DATABASE=classicmodels
+      - MYSQL_PORT=3306 # made this line as new
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # this is also new

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: streamlit-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: streamlit-app
+  template:
+    metadata:
+      labels:
+        app: streamlit-app
+    spec:
+      containers:
+      - name: streamlit-app
+        image: $DOCKER_IMAGE
+        ports:
+        - containerPort: 8501
+        env:
+        - name: MYSQL_HOST
+          value: host.docker.internal
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_PASSWORD
+          value: maniKANDAN-66
+        - name: MYSQL_DATABASE
+          value: maniKANDAN-66
+        # - MYSQL_PORT=3306 # made this line as new
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: streamlit-app-service
+spec:
+  selector:
+    app: streamlit-app
+  ports:
+  - port: 80
+    targetPort: 8501
+  type: LoadBalancer
