@@ -17,7 +17,7 @@ import pandas as pd
 
 
 # Initialize connection.
-# conn = st.connection('mysql', type='sql')
+conn = st.connection('mysql', type='sql')
 
 # Perform query.
 # df = conn.query('SELECT customerNumber, customerName, phone FROM customers LIMIT 10;', ttl=600)  
