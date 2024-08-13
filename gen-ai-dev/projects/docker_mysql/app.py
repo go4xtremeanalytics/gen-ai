@@ -21,7 +21,7 @@ conn = st.connection('mysql', type='sql')
 
 # Perform query.
 # This is for testing
-df = conn.query('SELECT customerNumber, customerName, phone FROM customers LIMIT 10;', ttl=600)  
+# df = conn.query('SELECT customerNumber, customerName, phone FROM customers LIMIT 10;', ttl=600)  
 
 
 
