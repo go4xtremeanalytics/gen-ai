@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-import mysql.connector
+# import mysql.connector
 import pandas as pd
 
 # Database connection
@@ -17,7 +17,7 @@ def init_connection():
 
 
 # Initialize connection.
-# conn = st.connection('mysql', type='sql')
+conn = st.connection('mysql', type='sql')
 
 # Perform query.
 # This is for testing
@@ -25,14 +25,14 @@ def init_connection():
 
 
 
-conn = init_connection()
+# conn = init_connection()
 
 # Perform query
-@st.cache_data
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
+# @st.cache_data
+# def run_query(query):
+#     with conn.cursor() as cur:
+#         cur.execute(query)
+#         return cur.fetchall()
 
 # Streamlit app
 st.title('My Streamlit App with MySQL Data')
