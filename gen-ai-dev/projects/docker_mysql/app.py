@@ -17,10 +17,10 @@ import pandas as pd
 
 
 # Initialize connection.
-conn = st.connection('mysql', type='sql')
+# conn = st.connection('mysql', type='sql')
 
 # Perform query.
-df = conn.query('SELECT customerNumber, customerName, phone FROM customers LIMIT 10;', ttl=600)  
+# df = conn.query('SELECT customerNumber, customerName, phone FROM customers LIMIT 10;', ttl=600)  
 
 
 
@@ -43,4 +43,4 @@ st.title('My Streamlit App with MySQL Data')
 # Display data
 st.write("Data from MySQL:")
 # df = pd.DataFrame(rows, columns=["customerNumber", "customerName", "phone"])  # Replace with your actual column names
-st.dataframe(df)
+# st.dataframe(df)
