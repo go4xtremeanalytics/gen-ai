@@ -4,7 +4,7 @@ import mysql.connector
 import pandas as pd
 
 # Database connection
-# This is for testing
+
 # @st.cache_resource
 # def init_connection():
 #     return mysql.connector.connect(
