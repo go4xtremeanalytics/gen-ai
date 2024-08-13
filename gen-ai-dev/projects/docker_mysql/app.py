@@ -4,6 +4,7 @@ import mysql.connector
 import pandas as pd
 
 # Database connection
+# This is for testing
 db_config = st.secrets["connections"]["mysql"]
 
 
