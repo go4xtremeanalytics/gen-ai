@@ -1,9 +1,54 @@
 import os
 import streamlit as st
-# import mysql.connector
+import mysql.connector
 import pandas as pd
 
 # Database connection
+db_config = st.secrets["mysql"]
+
+
+
+
+def create_connection():
+    try:
+        conn = mysql.connector.connect(
+            host=db_config["host"],
+            user=db_config["user"],
+            password=db_config["password"],
+            database=db_config["database"],
+            port=db_config["port"]
+        )
+        return conn
+    except mysql.connector.Error as err:
+        st.error(f"Error: {err}")
+        return None
+
+# Query the database
+def query_database(query):
+    conn = create_connection()
+    if conn is not None:
+        cursor = conn.cursor()
+        cursor.execute(query)
+        result = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return result
+    else:
+        return None
+
+# Example usage in Streamlit
+st.title("MySQL Database Connection Example")
+
+query = "SELECT customerNumber, customerName, phone FROM customers LIMIT 10;"
+data = query_database(query)
+
+if data:
+    st.write(data)
+else:
+    st.write("No data found or error in connection.")
+
+
+###############################################################################   END ######################################################################################################
 
 # @st.cache_resource
 # def init_connection():
@@ -17,7 +62,7 @@ import pandas as pd
 
 
 # Initialize connection.
-conn = st.connection('mysql', type='sql')
+# conn = st.connection('mysql', type='sql')
 
 # Perform query.
 # This is for testing
@@ -35,13 +80,13 @@ conn = st.connection('mysql', type='sql')
 #         return cur.fetchall()
 
 # Streamlit app
-st.title('My Streamlit App with MySQL Data')
+# st.title('My Streamlit App with MySQL Data')
 
 # Example query
 # query = "SELECT customerNumber, customerName, phone FROM customers LIMIT 10"
 # rows = run_query(query)
 
 # Display data
-st.write("Data from MySQL:")
+# st.write("Data from MySQL:")
 # df = pd.DataFrame(rows, columns=["customerNumber", "customerName", "phone"])  # Replace with your actual column names
 # st.dataframe(df)
