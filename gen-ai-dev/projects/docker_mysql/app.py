@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-# import mysql.connector
+import mysql.connector
 import pandas as pd
 
 # Database connection
@@ -17,7 +17,7 @@ import pandas as pd
 
 
 # Initialize connection.
-conn = st.connection('mysql', type='sql')
+conn = mysql.connector.connect('mysql', type='sql')
 
 # Perform query.
 # This is for testing
