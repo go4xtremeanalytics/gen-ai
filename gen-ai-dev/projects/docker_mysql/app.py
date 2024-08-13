@@ -5,19 +5,19 @@ import pandas as pd
 
 # Database connection
 
-# @st.cache_resource
-# def init_connection():
-#     return mysql.connector.connect(
-#         host=os.getenv("MYSQL_HOST", 'localhost'), # Changed from "host.docker.internal" 
-#         user=os.getenv("MYSQL_USER", "root"),
-#         password=os.getenv("MYSQL_PASSWORD", "maniKANDAN-661"),
-#         database=os.getenv("MYSQL_DATABASE", "classicmodels")
-#     )
+@st.cache_resource
+def init_connection():
+    return mysql.connector.connect(
+        host=os.getenv("MYSQL_HOST", 'localhost'), # Changed from "host.docker.internal" 
+        user=os.getenv("MYSQL_USER", "root"),
+        password=os.getenv("MYSQL_PASSWORD", "maniKANDAN-661"),
+        database=os.getenv("MYSQL_DATABASE", "classicmodels")
+    )
 
 
 
 # Initialize connection.
-conn = st.connection('mysql', type='sql')
+# conn = st.connection('mysql', type='sql')
 
 # Perform query.
 # This is for testing
@@ -25,14 +25,14 @@ conn = st.connection('mysql', type='sql')
 
 
 
-# conn = init_connection()
+conn = init_connection()
 
-# # Perform query
-# @st.cache_data
-# def run_query(query):
-#     with conn.cursor() as cur:
-#         cur.execute(query)
-#         return cur.fetchall()
+# Perform query
+@st.cache_data
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
 
 # Streamlit app
 st.title('My Streamlit App with MySQL Data')
