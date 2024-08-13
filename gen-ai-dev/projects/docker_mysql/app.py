@@ -17,7 +17,7 @@ import pandas as pd
 
 
 # Initialize connection.
-# conn = st.connection('mysql', type='sql')
+conn = st.connection('mysql', type='sql')
 
 # Perform query.
 # This is for testing
