@@ -1,93 +1,28 @@
-import os
+# streamlit_app.py
+
 import streamlit as st
-import mysql.connector
-import pandas as pd
+from google.oauth2 import service_account
+from google.cloud import bigquery
 
-# Database connection
-# This is for testing
-db_config = st.secrets["connections"]["mysql"]
-
-
-
-
-def create_connection():
-    try:
-        conn = mysql.connector.connect(
-            host=db_config["host"],
-            user=db_config["username"],
-            password=db_config["password"],
-            database=db_config["database"],
-            port=db_config["port"]
-        )
-        return conn
-    except mysql.connector.Error as err:
-        st.error(f"Error: {err}")
-        return None
-
-# Query the database
-def query_database(query):
-    conn = create_connection()
-    if conn is not None:
-        cursor = conn.cursor()
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        conn.close()
-        return result
-    else:
-        return None
-
-# Example usage in Streamlit
-st.title("MySQL Database Connection Example")
-
-query = "SELECT customerNumber, customerName, phone FROM customers LIMIT 10;"
-data = query_database(query)
-
-if data:
-    st.write(data)
-else:
-    st.write("No data found or error in connection.")
-
-
-###############################################################################   END ######################################################################################################
-
-# @st.cache_resource
-# def init_connection():
-#     return mysql.connector.connect(
-#         host=os.getenv("MYSQL_HOST", 'localhost'), # Changed from "host.docker.internal" 
-#         user=os.getenv("MYSQL_USER", "root"),
-#         password=os.getenv("MYSQL_PASSWORD", "maniKANDAN-661"),
-#         database=os.getenv("MYSQL_DATABASE", "classicmodels")
-#     )
-
-
-
-# Initialize connection.
-# conn = st.connection('mysql', type='sql')
+# Create API client.
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
+client = bigquery.Client(credentials=credentials)
 
 # Perform query.
-# This is for testing
-# df = conn.query('SELECT customerNumber, customerName, phone FROM customers LIMIT 10;', ttl=600)  
+# Uses st.cache_data to only rerun when the query changes or after 10 min.
+@st.cache_data(ttl=600)
+def run_query(query):
+    query_job = client.query(query)
+    rows_raw = query_job.result()
+    # Convert to list of dicts. Required for st.cache_data to hash the return value.
+    rows = [dict(row) for row in rows_raw]
+    return rows
 
+rows = run_query("SELECT word FROM `bigquery-public-data.samples.shakespeare` LIMIT 10")
 
-
-# conn = init_connection()
-
-# Perform query
-# @st.cache_data
-# def run_query(query):
-#     with conn.cursor() as cur:
-#         cur.execute(query)
-#         return cur.fetchall()
-
-# Streamlit app
-# st.title('My Streamlit App with MySQL Data')
-
-# Example query
-# query = "SELECT customerNumber, customerName, phone FROM customers LIMIT 10"
-# rows = run_query(query)
-
-# Display data
-# st.write("Data from MySQL:")
-# df = pd.DataFrame(rows, columns=["customerNumber", "customerName", "phone"])  # Replace with your actual column names
-# st.dataframe(df)
+# Print results.
+st.write("Some wise words from Shakespeare:")
+for row in rows:
+    st.write("✍️ " + row['word'])
