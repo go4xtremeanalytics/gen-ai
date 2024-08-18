@@ -20,7 +20,7 @@ def run_query(query):
     rows = [dict(row) for row in rows_raw]
     return rows
 
-rows = run_query("SELECT word FROM `ascendant-epoch-432900-m8.classicmodels.customers` LIMIT 10")
+rows = run_query("SELECT * FROM `ascendant-epoch-432900-m8.classicmodels.customers` LIMIT 10")
 
 # Print results.
 st.write("Some wise words from Shakespeare:")
