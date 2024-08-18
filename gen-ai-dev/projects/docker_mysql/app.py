@@ -25,4 +25,4 @@ rows = run_query("SELECT * FROM `ascendant-epoch-432900-m8.classicmodels.custome
 # Print results.
 st.write("Some wise words from Shakespeare:")
 for row in rows:
-    st.write("✍️ " + row['word'])
+    st.write("✍️ " + row['customerName'])
