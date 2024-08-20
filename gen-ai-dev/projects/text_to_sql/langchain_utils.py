@@ -129,14 +129,13 @@ def get_chain():
 
 
     # Retrieve the JSON key file path from Streamlit Secrets
-<<<<<<< HEAD
+
+
     # key_path = st.secrets["gcp_service_account"].get("path")
-=======
-    key_path = st.secrets["gcp_service_account"].get("path")
 
     # Set the environment variable to point to the key file
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
->>>>>>> 7ac4f72e09f9a688108c5e910e434bd3a950b5ea
+    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
+
 
     # Set the environment variable to point to the key file
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
