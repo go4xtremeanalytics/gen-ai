@@ -30,7 +30,17 @@ from typing import List
 # @st.cache_data
 def get_table_details():
     # Read the CSV file into a DataFrame
-    table_description = pd.read_csv("database_table_descriptions.csv")
+    database_table_descriptions = {"Table": ["productlines", "products", "offices", "employees", "customers", "payments", "orders", "orderdetails"], 
+                                   "Description": ["Stores information about the different product lines offered by the company, including a unique name, textual description, HTML description, and image. Categorizes products into different lines.", 
+                                                   "Contains details of each product sold by the company, including code, name, product line, scale, vendor, description, stock quantity, buy price, and MSRP. Linked to the productlines table.", 
+                                                   "Holds data on the company's sales offices, including office code, city, phone number, address, state, country, postal code, and territory. Each office is uniquely identified by its office code.", 
+                                                   "Stores information about employees, including number, last name, first name, job title, contact info, and office code. Links to offices and maps organizational structure through the reportsTo attribute.", 
+                                                   "Captures data on customers, including customer number, name, contact details, address, assigned sales rep, and credit limit. Central to managing customer relationships and sales processes.", 
+                                                   "Records payments made by customers, tracking the customer number, check number, payment date, and amount. Linked to the customers table for financial tracking and account management.", 
+                                                   "Details each sales order placed by customers, including order number, dates, status, comments, and customer number. Linked to the customers table, tracking sales transactions.", 
+                                                   "Describes individual line items for each sales order, including order number, product code, quantity, price, and order line number. Links orders to products, detailing the items sold."]}
+    table_description = pd.DataFrame(database_table_descriptions)
+    # table_description = pd.read_csv("database_table_descriptions.csv")
     table_docs = []
 
     # Iterate over the DataFrame rows to create Document objects
