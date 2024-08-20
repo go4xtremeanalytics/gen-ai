@@ -7,6 +7,7 @@ myenv/
 # C extensions
 *.so
 .streamlit/secrets.toml
+*.toml
 # Distribution / packaging
 .Python
 build/

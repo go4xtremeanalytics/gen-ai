@@ -5,6 +5,8 @@ __pycache__/
 myenv/
 venv/
 .streamlit/secrets.toml
+gen-ai-dev/projects/text_to_sql/.streamlit/*.toml
+*.toml
 *.exe
 # C extensions
 *.so
