@@ -6,8 +6,8 @@ st.title("Langchain NL2SQL Chatbot")
 
 # Set OpenAI API key from Streamlit secrets
 # client = OpenAI(api_key="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")
-client = OpenAI(api_key="sk-proj-VofqaSNGH9176ePfZRg0T3BlbkFJQ5KchbPXWLVFfEhsxH4z")
-print(client)
+# client = OpenAI(api_key="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")
+# print(client)
 
 # Set a default model
 if "openai_model" not in st.session_state:

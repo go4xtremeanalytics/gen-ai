@@ -14,21 +14,24 @@ db_password = "maniKANDAN-661"
 db_host = "host.docker.internal" # Changed from "localhost"
 db_name = "classicmodels"
 
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-# LANGCHAIN_TRACING_V2 = os.getenv("LANGCHAIN_TRACING_V2")
-# LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
-
-# OPENAI_API_KEY="sk-proj-VofqaSNGH9176ePfZRg0T3BlbkFJQ5KchbPXWLVFfEhsxH4z"
-# LANGCHAIN_TRACING_V2="true"
-# LANGCHAIN_API_KEY="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"
 
 
+# testing
 
 
+###############################   New   #################################################################
+
+import streamlit as st
 import os
-os.environ["OPENAI_API_KEY"] = "sk-proj-VofqaSNGH9176ePfZRg0T3BlbkFJQ5KchbPXWLVFfEhsxH4z"
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_API_KEY"] = "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"
+import json
+import tempfile
+
+# Access the OpenAI API key
+openai_api_key = st.secrets["api_keys"]["openai_api_key"]
+import os
+os.environ["OPENAI_API_KEY"] = openai_api_key
+
+#################################################################
 
 
 
@@ -105,30 +108,39 @@ def get_chain():
     
     # db = SQLDatabase.from_uri(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}")
 
-    ######### New Code
-    import os
-    # gac = st.secrets["gcp_service_account"]
-    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gac
+    # ######### New Code
+    # import os
+    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "ascendant-epoch-432900-m8-c87642eb57fa.json"
 
 
+    ###############################   New   ###########################################################################################
+    # Access the Google service account credentials
+    service_account_info = st.secrets["gcp_service_account"]
+    # Convert AttrDict to a regular dictionary
+    service_account_dict = dict(service_account_info)
 
-    import google.auth
-    from google.oauth2 import service_account
-    from google.cloud import bigquery
+    # Create a temporary file and write the JSON data
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".json", mode='w') as temp_file:
+        json.dump(service_account_dict, temp_file)
+        temp_file_path = temp_file.name
 
-    import streamlit as st
-    import os
-    import google.auth
+    print(f"Temporary file created at: {temp_file_path}")
+
+
 
     # Retrieve the JSON key file path from Streamlit Secrets
-    key_path = st.secrets["gcp_service_account"]
-    
-    # Set the environment variable to point to the key file
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
+    # key_path = st.secrets["gcp_service_account"].get("path")
 
-    import os
-    os.environ["OPENAI_API_KEY"] = "sk-proj-VofqaSNGH9176ePfZRg0T3BlbkFJQ5KchbPXWLVFfEhsxH4z"
-    # from sqlalchemy import *
+    # Set the environment variable to point to the key file
+    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
+
+
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_file_path
+
+
+    ##################################################################################################################################
+
+   
     from langchain.agents.agent_toolkits import SQLDatabaseToolkit, create_sql_agent
     from langchain.sql_database import SQLDatabase
     from langchain.llms import VertexAI
