@@ -121,8 +121,8 @@ def get_chain():
     import google.auth
 
     # Retrieve the JSON key file path from Streamlit Secrets
-    key_path = st.secrets["gcp_service_account"]
-    
+    key_path = st.secrets["gcp_service_account"].get("path")
+
     # Set the environment variable to point to the key file
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = key_path
 
