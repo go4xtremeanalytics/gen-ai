@@ -5,15 +5,18 @@ from langchain_utils import invoke_chain
 
 st.title("Langchain NL2SQL Chatbot")
 
+st.title(":blue[This app is powered by 'gpt-3.5-turbo']  :sunglasses:")
+
+
 # Set OpenAI API key from Streamlit secrets
 # client = OpenAI(api_key="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")
 # client = OpenAI(api_key="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")
 # print(client)
 
 # Set a default model
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
-    st.session_state
+# if "openai_model" not in st.session_state:
+#     st.session_state["openai_model"] = "gpt-3.5-turbo"
+#     st.session_state
 
 # Initialize chat history
 if "messages" not in st.session_state:
