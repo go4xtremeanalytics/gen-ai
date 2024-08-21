@@ -113,7 +113,8 @@ pydantic_core==2.20.1
 SQLAlchemy==1.4.53
 sqlalchemy-orm==1.2.10
 # stack-data==0.6.3
-streamlit==1.36.0
+#streamlit==1.36.0
+streamlit==1.11.0
 # tenacity==8.5.0
 tiktoken==0.7.0
 toml==0.10.2
